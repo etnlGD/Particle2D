@@ -1,24 +1,40 @@
 #ifndef MATH3D_MATH3D_H
 #define MATH3D_MATH3D_H
 #include <cassert>
-#include <boost/call_traits.hpp>
 
 namespace math3d 
 {
 	template <typename T>
-	inline T clamp(
-		typename boost::call_traits<T>::param_type pValue, 
-		typename boost::call_traits<T>::param_type pMin, 
-		typename boost::call_traits<T>::param_type pMax)
+	inline T clamp(const T& value, const T& min, const T& max)
 	{
-		assert(pMax >= pMin);
+		assert(max >= min);
 
-		if (pValue > pMax)
-			return pMax;
-		else if (pValue < pMin)
-			return pMin;
+		if (value > max)
+			return max;
+		else if (value < min)
+			return min;
 		else
-			return pValue;
+			return value;
+	}
+	
+	template <typename T>
+	inline void doClamp(T& value, const T& min, const T& max)
+	{
+		assert(max >= min);
+
+		if (value > max)
+			value = max;
+		else if (value < min)
+			value = min;
+	}
+
+	template <typename T>
+	inline T lerp(const T& source, const T& target, float progress)
+	{
+		T result = target - source;
+		result *= progress;
+		result += source;
+		return result;
 	}
 
 }

@@ -128,21 +128,25 @@ namespace math3d
 	public:	// fields
 		union {
 			T x;
+			T r;
 			T s;
 		};
 
 		union {
 			T y;
+			T g;
 			T t;
 		};
 
 		union {
 			T z;
+			T b;
 			T p;
 		};
 
 		union {
 			T w;
+			T a;
 			T q;
 		};
 	};

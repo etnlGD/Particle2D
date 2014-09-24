@@ -1,9 +1,20 @@
 #pragma once
+#include <math3d/vector2d.h>
+#include "SFixedPointColor.h"
 
 namespace particle2d
 {
+	using namespace math3d;
 	struct SParticle
 	{
+		SParticle() : randomSeed(0), localTime(0.f),
+			lifeTime(0.f), color(1.f, 1.f, 1.f), size(1.f, 1.f) {}
+
+		SParticle(unsigned seed) : randomSeed(seed), localTime(0.f), 
+			lifeTime(0.f), color(1.f, 1.f, 1.f), size(1.f, 1.f) {}
+
+		unsigned randomSeed;
+
 		//! Elapsed time of the particle since born
 		float localTime;
 
@@ -14,13 +25,13 @@ namespace particle2d
 		vec2 pos;
 
 		//! Direction and speed of the particle
-		core::vector3df vector;
+		vec2 vector;
 
 		//! Current color of the particle
-		video::SColor16 color;
+		SColor16 color;
 
 		//! Scale of the particle.
 		/** The current scale of the particle. */
-		core::dimension2df size;
+		vec2 size;
 	};
 }

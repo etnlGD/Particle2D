@@ -176,13 +176,13 @@ namespace math3d
 				return this->ref();
 		}
 
-		inline MyType lerp(const MyType& vec, T ratio) const 
-		{
-			_check_T_is_floating_point();
-			MyType res = this->ref() * ratio;
-			return res += (vec * (1 - ratio));
-
-		}
+		// This method has moved to "math3d.h"
+		// inline MyType lerp(const MyType& vec, T ratio) const 
+		// {
+		// 	_check_T_is_floating_point();
+		// 	MyType res = this->ref() * ratio;
+		// 	return res += (vec * (1 - ratio));
+		// }
 
 		inline MyType mid(const MyType& vec) const 
 		{
