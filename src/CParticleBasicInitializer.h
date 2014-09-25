@@ -61,9 +61,9 @@ namespace particle2d
 		IDistribution<float>* mWidthDistribution;
 		IDistribution<float>* mHeightDistribution;
 		IDistribution<float>* mTimeDistribution;
-		IDistribution<float>* mRedDistribution;
+        IDistribution<float>* mAlphaDistribution;
+        IDistribution<float>* mRedDistribution;
 		IDistribution<float>* mGreenDistribution;
 		IDistribution<float>* mBlueDistribution;
-		IDistribution<float>* mAlphaDistribution;
 	};
 }

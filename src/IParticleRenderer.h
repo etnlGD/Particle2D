@@ -1,5 +1,7 @@
 #pragma once
 #include "ReferenceCounted.h"
+#include "SParticle.h"
+#include <vector>
 
 namespace particle2d
 {
@@ -10,11 +12,23 @@ namespace particle2d
 		typedef ParticleVector::iterator ParticleIterator;
 
 	public:
-		virtual void onParticleSwapped(ParticleIterator pos) = 0;
+		IParticleRenderer() : source(0) {}
 
-		virtual void setParticleSource(const ParticleVector&) = 0;
+		virtual void onParticleSwapped(ParticleIterator pos)
+		{
+			// default do nothing.
+			(void) pos;
+		}
+
+		virtual void setParticleSource(const ParticleVector& source)
+		{
+			this->source = &source;
+		}
 
 		virtual void render() = 0;
+
+	protected:
+		const ParticleVector* source;
 	};
 }
 

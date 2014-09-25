@@ -6,12 +6,13 @@
 namespace math3d 
 {
 	template <class T> 
-	class vector2d : public basic_vector<T, vector2d>
+	class vector2d : public basic_vector<T, vector2d<T> >
 	{
-#ifdef __GNUC__
-		typedef typename basic_vector<T, vector2d>::BasicVector BasicVector;
-#endif
-		typedef vector2d<T> MyType;
+//#ifdef __GNUC__
+//		typedef typename basic_vector<T, vector2d>::BasicVector BasicVector;
+//#endif
+        typedef vector2d<T> MyType;
+        typedef basic_vector<T, MyType> BasicVector;
 
 	public:
 		static const MyType ZERO;

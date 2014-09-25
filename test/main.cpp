@@ -71,7 +71,7 @@ class PointRenderer : public IParticleRenderer
 	static int program;
 
 public:
-	PointRenderer() : source(nullptr) 
+	PointRenderer()
 	{
 		assert(vbo != 0);
 		glGenBuffers(1, &vbo);
@@ -92,16 +92,6 @@ public:
 		glBindVertexBuffer(1, vbo, 0, 7*4);
 		glBindVertexBuffer(2, vbo, 0, 7*4);
 		glBindVertexArray(0);
-	}
-
-	virtual void onParticleSwapped(ParticleIterator pos) 
-	{
-		// have nothing to do here
-	}
-
-	virtual void setParticleSource(const ParticleVector& pv) 
-	{
-		source = &pv;
 	}
 
 	virtual void render() 
@@ -138,9 +128,6 @@ private:
 			vertexPtr->color = p.color.toVec4();
 			vertexPtr->size = p.size.x * p.size.y;
 
-// 			cout << "--\n";
-// 			cout << p.pos.x  << ", " << p.pos.y << endl;
-//			cout << vertexPtr->size << endl;
 			++vertexPtr;
 		}
 
@@ -152,7 +139,6 @@ private:
 private:
 	GLuint vbo;
 	GLuint vao;
-	const ParticleVector* source;
 };
 
 const char* PointRenderer::vs =

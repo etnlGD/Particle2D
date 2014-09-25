@@ -7,15 +7,14 @@
 
 namespace math3d 
 {
-	template <typename T, template <class> class Vector>
+	template <typename T, typename MyType>
 	class basic_vector : 
-		public chain_base<Vector<T>,
-			boost::arithmetic<Vector<T>,
-				boost::equality_comparable<Vector<T> > > >
+		public chain_base<MyType,
+			boost::arithmetic<MyType,
+				boost::equality_comparable<MyType> > >
 	{
 	protected:	// typedefs
-		typedef Vector<T> MyType;
-		typedef basic_vector<T, Vector> BasicVector;
+		typedef basic_vector<T, MyType> BasicVector;
 
 	private:	// traits
 		/**

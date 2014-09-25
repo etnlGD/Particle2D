@@ -1,5 +1,6 @@
 #include "CParticleBoxInitializer.h"
 #include "Randomizer.h"
+#include <algorithm>
 
 namespace particle2d
 {

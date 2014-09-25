@@ -26,13 +26,13 @@ namespace particle2d
 		/// Sets the targetColor, i.e. the color the particles will interpolate
 		/// to over time.
 		void setTargetColor(const vec4& targetColor) 
-		{ 
+		{
 			mTargetColor = targetColor; 
 		}
 
 		/// Sets the targetColor, i.e. the color the particles will interpolate
 		/// to over time.
-		const vec4& getTargetColor() const 
+		vec4 getTargetColor() const 
 		{ 
 			return mTargetColor.toVec4(); 
 		}
