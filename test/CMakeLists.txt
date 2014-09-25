@@ -3,7 +3,6 @@
 INCLUDE_DIRECTORIES(
 	../src/
 	../include/
-	$ENV{BOOST_ROOT}
 	$ENV{GLEW_ROOT}include )
 
 # LINK_DIRECTORIES(...)

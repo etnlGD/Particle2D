@@ -2,8 +2,7 @@
 
 INCLUDE_DIRECTORIES(
 	./
-	../include/
-	$ENV{BOOST_ROOT})
+	../include/)
 
 # LINK_DIRECTORIES(...)
 

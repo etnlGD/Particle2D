@@ -11,7 +11,6 @@ namespace particle2d
 		else
 			generateCentralPoint(pos, speedDir);
 
-
 		particle.pos = pos;
 		if (mUsingNormalDirectionAsSpeed)
 		{
