@@ -187,7 +187,7 @@ namespace math3d
 		inline MyType mid(const MyType& vec) const 
 		{
 			_check_T_is_floating_point();
-			return this->self()->lerp(vec, (T) 0.5f);
+			return lerp(this->ref(), vec, (T) 0.5f);
 		}
 
 		inline MyType dir() const 

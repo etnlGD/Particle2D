@@ -238,7 +238,7 @@ namespace math3d
 #define MATH3D_PI_VALUE 3.1415926535897932384626433832795028841971693993751058
 #endif
 	template <typename T>
-	const radian_t<T> radian_t<T>::ZERO = T(0);
+	const radian_t<T> radian_t<T>::ZERO(0);
 
 	template <typename T>
 	const radian_t<T> radian_t<T>::PI(T(MATH3D_PI_VALUE));

@@ -7,7 +7,6 @@ namespace particle2d
 	class IParticleAffector : public virtual ReferenceCounted
 	{
 	public:
-
 		virtual void affect(SParticle& p, float deltaTime, 
 							float progress, float deltaProgress) = 0;
 	};

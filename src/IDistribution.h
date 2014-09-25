@@ -16,7 +16,8 @@ namespace particle2d
 			class DistributionTpl : public IDistribution<T>
 			{
 			public:
-				DistributionTpl(const StdDistribution& copy) : impl(copy) {}
+				DistributionTpl(const StdDistribution& copy, unsigned seed) : 
+					impl(copy), generator(++seed) {}
 
 				virtual T generate() override
 				{
@@ -28,7 +29,9 @@ namespace particle2d
 				URNG generator;
 			};
 
-			return new DistributionTpl(distribution);
+
+			static unsigned seed = (unsigned) (&distribution);
+			return new DistributionTpl(distribution, ++seed);
 		}
 	};
 }

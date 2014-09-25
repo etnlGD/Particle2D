@@ -104,7 +104,7 @@ namespace particle2d
 
 	void CParticleSystem2D::update(float deltaTime)
 	{
-		if (!d->active)
+		if (!isActive())
 			return;
 
 		auto& particles = d->particles;
@@ -171,7 +171,7 @@ namespace particle2d
 			// finished
 			d->_set_active(*this, false);
 
-			if (d->autoPurge)
+			if (isPurgeAutomatically())
 				purgeUnusedData();
 		}
 		
@@ -197,6 +197,16 @@ namespace particle2d
 			if (!isActive())
 				lis->onStatusChanged(*this);
 		}
+	}
+
+	bool CParticleSystem2D::isPurgeAutomatically() const
+	{
+		return d->autoPurge;
+	}
+
+	void CParticleSystem2D::setPurgeAutomatically( bool autoPurge )
+	{
+		d->autoPurge = autoPurge;
 	}
 
 }

@@ -10,9 +10,11 @@ namespace particle2d
 		typedef ParticleVector::iterator ParticleIterator;
 
 	public:
-		virtual void onParticleSwapped(
-			const ParticleVector& particles, ParticleIterator pos) = 0;
+		virtual void onParticleSwapped(ParticleIterator pos) = 0;
 
+		virtual void setParticleSource(const ParticleVector&) = 0;
+
+		virtual void render() = 0;
 	};
 }
 

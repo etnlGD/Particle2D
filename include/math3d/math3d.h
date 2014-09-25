@@ -28,6 +28,7 @@ namespace math3d
 			value = min;
 	}
 
+#pragma warning(disable: 4244)
 	template <typename T>
 	inline T lerp(const T& source, const T& target, float progress)
 	{

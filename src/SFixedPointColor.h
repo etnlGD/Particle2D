@@ -1,4 +1,5 @@
 #pragma once
+#include <cstdint>
 #include <math3d/vector4d.h>
 #include <math3d/math3d.h>
 
@@ -48,7 +49,7 @@ namespace particle2d
 
 		static float fixed_point_to_float(T value)
 		{
-			static inv = 1.f / CHANNEL_MAX_VALUE;
+			static float inv = 1.f / CHANNEL_MAX_VALUE;
 			return inv * value;
 		}
 
@@ -63,6 +64,11 @@ namespace particle2d
 		SFixedPointColor(u32 color) { setARGBInt(color); }
 
 		SFixedPointColor(const vec4& colorf)
+		{
+			setARGB(colorf.w, colorf.x, colorf.y, colorf.z);
+		}
+
+		SFixedPointColor& operator=(const vec4& colorf)
 		{
 			setARGB(colorf.w, colorf.x, colorf.y, colorf.z);
 		}
@@ -116,21 +122,24 @@ namespace particle2d
 		float getGreen() const { return getChannel(ECC_GREEN_CHANNEL);	}
 		float getBlue () const { return getChannel(ECC_BLUE_CHANNEL); 	}
 		
-		void interpolate(const MyType& source, const MyType& target, float d)
+		void interpolate(const MyType& target, float d, E_COLOR_CHANNEL channel)
 		{
-			_interpolate_ch(source, target, d, ECC_ALPHA_CHANNEL);
-			_interpolate_ch(source, target, d, ECC_RED_CHANNEL);
-			_interpolate_ch(source, target, d, ECC_GREEN_CHANNEL);
-			_interpolate_ch(source, target, d, ECC_BLUE_CHANNEL);
+			channels[channel] = this->_lerp_channel(target, d, channel);
+		}
+
+		void interpolate(const MyType& target, float d)
+		{
+			interpolate(target, d, ECC_ALPHA_CHANNEL);
+			interpolate(target, d, ECC_RED_CHANNEL);
+			interpolate(target, d, ECC_GREEN_CHANNEL);
+			interpolate(target, d, ECC_BLUE_CHANNEL);
 		}
 		
 		MyType lerp(const MyType& target, float d)
 		{
-			MyType res;
-			res.interpolate(*this, target, d);_lerp_channel(target, d, ECC_ALPHA_CHANNEL);
-			lerp(target, d, ECC_RED_CHANNEL);
-			lerp(target, d, ECC_GREEN_CHANNEL);
-			lerp(target, d, ECC_BLUE_CHANNEL);
+			MyType res = *this;
+			res.interpolate(target, d);
+			return res;
 		}
 
 		void setARGBInt(u32 color)
@@ -157,17 +166,12 @@ namespace particle2d
 		}
 
 	private:
-		void _interpolate_ch(const MyType& source, const MyType& target, 
-							 float d, E_COLOR_CHANNEL channel)
-		{
-			channels[channel] = source._lerp_channel(target, d, channel);
-		}
-
-		T _lerp_channel(const MyType& target, float d, E_COLOR_CHANNEL channel)
+		T _lerp_channel(const MyType& target, float d, 
+						E_COLOR_CHANNEL channel) const
 		{
 			T sourceValue = channels[channel];
 			T targetValue = target.channels[channel];
-			return lerp(sourceValue, targetValue, d);
+			return math3d::lerp(sourceValue, targetValue, d);
 		}
 
 		inline void _set_channel(E_COLOR_CHANNEL channel, u8 value)
