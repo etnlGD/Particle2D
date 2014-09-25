@@ -7,7 +7,7 @@ namespace particle2d
 {
 	CParticleSpeedInitializer::CParticleSpeedInitializer(
 			const vec2& dir, radian angle) :
-		dir(dir.dir()), maxAngle(angle)
+		dir(dir), maxAngle(angle)
 	{
 	}
 

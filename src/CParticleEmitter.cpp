@@ -42,22 +42,13 @@ namespace particle2d
 		mInitializers.erase(begin, end);
 	}
 
-	EmitCountDistribution* CParticleEmitter::createDefaultDistribution()
-	{
-		typedef std::default_random_engine defaultURNG;
-		return EmitCountDistribution::create<defaultURNG>(
-				std::uniform_real_distribution<float>(80, 100));
-	}
-
 	unsigned CParticleEmitter::_update_accum_count(float deltaTime)
 	{
 		if (mPPSDistribution == nullptr)
-		{
-			mPPSDistribution = createDefaultDistribution();
-			assert(mPPSDistribution != nullptr);
-		}
+			mAccum += 100 * deltaTime;
+		else
+			mAccum += mPPSDistribution->generate() * deltaTime;
 
-		mAccum += mPPSDistribution->generate() * deltaTime;
 		if (mAccum >= 1)
 		{
 			unsigned newParticleCount = (unsigned) mAccum;

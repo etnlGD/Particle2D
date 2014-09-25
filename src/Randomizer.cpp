@@ -36,7 +36,7 @@ namespace particle2d
 
 	float Randomizer::frand()
 	{
-		return rand() * (1.f / RAND_MAX);
+		return rand() * (1.f / MAX_RAND);
 	}
 
 	float Randomizer::frand(float max)

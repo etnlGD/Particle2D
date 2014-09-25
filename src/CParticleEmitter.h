@@ -52,9 +52,6 @@ namespace particle2d
 			mPPSDistribution = EmitCountDistribution::create<URNG>(distribution);
 		}
 
-	protected:
-		virtual EmitCountDistribution* createDefaultDistribution();
-
 	private:
 		/// Calculate new accum
 		unsigned _update_accum_count(float deltaTime);

@@ -8,10 +8,10 @@ namespace particle2d
 	struct SParticle
 	{
 		SParticle() : randomSeed(0), localTime(0.f),
-			lifeTime(0.f), color(1.f, 1.f, 1.f), size(1.f, 1.f) {}
+			lifeTime(1.f), color(1.f, 1.f, 1.f), size(1.f, 1.f) {}
 
 		SParticle(unsigned seed) : randomSeed(seed), localTime(0.f), 
-			lifeTime(0.f), color(1.f, 1.f, 1.f), size(1.f, 1.f) {}
+			lifeTime(1.f), color(1.f, 1.f, 1.f), size(1.f, 1.f) {}
 
 		unsigned randomSeed;
 

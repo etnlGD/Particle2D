@@ -71,6 +71,7 @@ namespace particle2d
 		SFixedPointColor& operator=(const vec4& colorf)
 		{
 			setARGB(colorf.w, colorf.x, colorf.y, colorf.z);
+			return *this;
 		}
 
 		bool operator==(const MyType& other) const
@@ -171,7 +172,7 @@ namespace particle2d
 		{
 			T sourceValue = channels[channel];
 			T targetValue = target.channels[channel];
-			return math3d::lerp(sourceValue, targetValue, d);
+			return math3d::lerp<int>(sourceValue, targetValue, d);
 		}
 
 		inline void _set_channel(E_COLOR_CHANNEL channel, u8 value)

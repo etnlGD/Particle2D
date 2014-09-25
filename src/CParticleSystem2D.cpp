@@ -3,13 +3,13 @@
 #include <list>
 #include <vector>
 #include <random>
+#include <chrono>
 #include "iptr.h"
 #include "SParticle.h"
 #include "CTimeRange.h"
 #include "CParticleEmitter.h"
 #include "IParticleAffector.h"
 #include "IParticleRenderer.h"
-#include <chrono>
 
 namespace particle2d
 {
@@ -45,8 +45,9 @@ namespace particle2d
 		};
 
 		pimpl(unsigned reservedParticleCount) :
-			particles(reservedParticleCount), active(true), autoPurge(true)
+			active(true), autoPurge(true)
 		{
+			particles.reserve(reservedParticleCount);
 		}
 
 		list<SRangedEmitter> emitters;
@@ -100,6 +101,9 @@ namespace particle2d
 	void CParticleSystem2D::setRenderer(IParticleRenderer* renderer)
 	{
 		d->renderer = renderer;
+		
+		if (renderer)
+			renderer->setParticleSource(d->particles);
 	}
 
 	void CParticleSystem2D::update(float deltaTime)
@@ -117,7 +121,8 @@ namespace particle2d
 			float effectTime = rangedEmitter.range.sweep(deltaTime);
 			if (effectTime > 0)
 				rangedEmitter.emitter->emit(particles, rng, effectTime);
-			else if (!rangedEmitter.range.hasFinished())
+			
+			if (!rangedEmitter.range.hasFinished())
 				hasActiveEmitter = true;
 		}
 
@@ -153,11 +158,19 @@ namespace particle2d
 			// erase is pretty expensive!
 			if (it->localTime > it->lifeTime)
 			{
-				*it = particles.back();
-				particles.pop_back();
+				if (it == --particles.end())
+				{
+					particles.pop_back();
+					break;
+				}
+				else
+				{
+					*it = particles.back();
+					particles.pop_back();
 
-				if (renderer)
-					renderer->onParticleSwapped(particles, it);
+					if (renderer)
+						renderer->onParticleSwapped(it);
+				}
 			}
 			else
 			{
